@@ -12,7 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. Gerar as semanas (4 Semanas) e as caixas de metas
     for (let semana = 1; semana <= 4; semana++) {
         // Rótulo vertical da semana
-        grid.innerHTML += `<div class="week-label"><span>SEMANA ${semana}</span></div>`;
+        grid.innerHTML += `<div class="week-label" onclick="toggleSemana(${semana})">
+            <span>SEMANA ${semana}</span>
+            <span class="toggle-icon" id="week-arrow-${semana}">▼</span>
+        </div>`;
 
         // Caixas de cada dia (6 dias por semana)
         for (let dia = 1; dia <= 6; dia++) {
@@ -29,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }).join('');
             
             grid.innerHTML += `
-                <div class="day-card">
+                <div class="day-card week-content-${semana}">
                     <div class="day-card-header">
                         <span class="mobile-day-label">${diasSemana[dia-1]}</span>
                         <div class="card-date" data-offset="${offset}"></div>
@@ -42,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3. Carregar progresso salvo (LocalStorage)
     carregarProgresso();
     carregarConfig(); // Carrega as configurações do usuário
+    inicializarAccordion(); // Define qual semana fica aberta
 });
 
 // Função para salvar estado do checkbox
@@ -70,6 +74,7 @@ function carregarProgresso() {
     dataInput.addEventListener('change', (e) => {
         localStorage.setItem('dataInicio', e.target.value);
         atualizarDatas();
+        inicializarAccordion(); // Recalcula a semana atual ao mudar a data
     });
     
     atualizarDatas();
@@ -239,3 +244,60 @@ window.addEventListener('beforeinstallprompt', (e) => {
         });
     });
 });
+
+// --- LÓGICA DO ACCORDION (MOBILE) ---
+
+function toggleSemana(semana) {
+    // Só executa a lógica se estiver em tela pequena (opcional, pois o CSS já controla)
+    if (window.innerWidth > 800) return;
+
+    const dias = document.querySelectorAll(`.week-content-${semana}`);
+    const arrow = document.getElementById(`week-arrow-${semana}`);
+    
+    // Verifica se está fechado olhando o primeiro dia
+    const isClosed = dias[0].classList.contains('collapsed');
+
+    dias.forEach(dia => {
+        if (isClosed) dia.classList.remove('collapsed');
+        else dia.classList.add('collapsed');
+    });
+
+    if (arrow) {
+        arrow.style.transform = isClosed ? 'rotate(0deg)' : 'rotate(-90deg)';
+    }
+}
+
+function inicializarAccordion() {
+    const dataInput = document.getElementById('data-inicio');
+    let semanaAtual = 1;
+
+    if (dataInput.value) {
+        const dataInicio = new Date(dataInput.value + 'T12:00:00');
+        const hoje = new Date();
+        const diffDays = Math.floor((hoje - dataInicio) / (1000 * 60 * 60 * 24));
+        
+        if (diffDays >= 0) semanaAtual = Math.floor(diffDays / 7) + 1;
+    }
+    
+    // Limita entre 1 e 4
+    if (semanaAtual < 1) semanaAtual = 1;
+    if (semanaAtual > 4) semanaAtual = 4;
+
+    // Fecha todas as semanas exceto a atual
+    for (let i = 1; i <= 4; i++) {
+        if (i !== semanaAtual) toggleSemana(i); // Usa a função toggle para fechar as outras
+        // Nota: Como o padrão é aberto, chamamos toggle apenas nas que queremos fechar
+        // Mas precisamos garantir o estado inicial correto.
+        
+        const dias = document.querySelectorAll(`.week-content-${i}`);
+        const arrow = document.getElementById(`week-arrow-${i}`);
+        
+        if (i === semanaAtual) {
+            dias.forEach(d => d.classList.remove('collapsed'));
+            if(arrow) arrow.style.transform = 'rotate(0deg)';
+        } else {
+            dias.forEach(d => d.classList.add('collapsed'));
+            if(arrow) arrow.style.transform = 'rotate(-90deg)';
+        }
+    }
+}
