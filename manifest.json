@@ -1,7 +1,7 @@
 {
   "name": "Planner Fitness",
   "short_name": "Planner",
-  "start_url": "./planner.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#fbf8f9",
   "theme_color": "#ff9cb3",
