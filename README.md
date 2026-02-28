@@ -1,5 +1,7 @@
 # 💪 Planner Fitness - Progressive Web App (PWA)
 
+> 📲 **Acesse o App funcionando:** [Clique aqui para abrir](https://SEU-USUARIO.github.io/NOME-DO-REPOSITORIO/)
+
 Um aplicativo web progressivo desenvolvido para auxiliar no acompanhamento e evolução de metas diárias de saúde e condicionamento físico. O projeto transforma um simples checklist de hábitos em uma ferramenta dinâmica que adapta as recomendações com base na biometria e nos objetivos do usuário.
 
 ## 🚀 Funcionalidades
