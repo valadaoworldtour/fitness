@@ -1,6 +1,6 @@
 const CACHE_NAME = 'planner-fitness-v1';
 const ASSETS = [
-  './planner.html',
+  './index.html',
   './style.css',
   './script.js',
   './manifest.json',
