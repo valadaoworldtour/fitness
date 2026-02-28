@@ -1,5 +1,6 @@
-const CACHE_NAME = 'planner-fitness-v2';
+const CACHE_NAME = 'planner-fitness-v3';
 const ASSETS = [
+  './',
   './index.html',
   './style.css',
   './script.js',
@@ -9,9 +10,23 @@ const ASSETS = [
 ];
 
 self.addEventListener('install', (e) => {
+  self.skipWaiting();
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
   );
+});
+
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then((keyList) => {
+      return Promise.all(keyList.map((key) => {
+        if (key !== CACHE_NAME) {
+          return caches.delete(key);
+        }
+      }));
+    })
+  );
+  return self.clients.claim();
 });
 
 self.addEventListener('fetch', (e) => {
