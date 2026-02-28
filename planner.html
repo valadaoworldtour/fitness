@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planner Projeto Fitness</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff9cb3">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="planner-container">
+        <header>
+            <button id="install-btn" class="install-btn" style="display: none;">📥 Instalar App</button>
+            <button class="settings-btn" onclick="abrirConfig()" title="Configurações">⚙️</button>
+            <h1>PLANNER</h1>
+            <div class="subtitle">Projeto Fitness</div>
+            <div class="start-date">
+                INÍCIO: <input type="date" id="data-inicio">
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar">0%</div>
+            </div>
+        </header>
+
+        <div class="grid" id="planner-grid">
+            </div>
+
+        <footer>
+            MARQUE UM X NA META DO DIA REALIZADA
+            <br>
+            <button class="reset-btn" onclick="resetarPlanner()">Iniciar Novo Mês</button>
+        </footer>
+    </div>
+
+    <!-- Estrutura do Modal -->
+    <div class="modal-overlay" id="info-modal" onclick="fecharModal(event)">
+        <div class="modal-box">
+            <h2 class="modal-title" id="modal-title">Título</h2>
+            <p class="modal-text" id="modal-desc">Descrição aqui.</p>
+            <button class="close-modal-btn" onclick="fecharModal(null, true)">Entendi</button>
+        </div>
+    </div>
+
+    <!-- Modal de Configurações -->
+    <div class="modal-overlay" id="config-modal" onclick="fecharConfig(event)">
+        <div class="modal-box">
+            <h2 class="modal-title">Configurações</h2>
+            <div class="config-form">
+                <label>Peso Atual (kg):</label>
+                <input type="number" id="conf-peso" placeholder="Ex: 70">
+                
+                <label>Objetivo:</label>
+                <select id="conf-objetivo">
+                    <option value="massa">Ganhar Massa Muscular</option>
+                    <option value="perda">Perder Gordura</option>
+                </select>
+
+                <button class="save-btn" onclick="salvarConfig()">Salvar Alterações</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(() => console.log('Service Worker registrado!'))
+                .catch((err) => console.error('Erro ao registrar Service Worker:', err));
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,442 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Oswald:wght@400;500;700&display=swap');
+
+:root {
+    --pink-light: #fef0f3;
+    --pink-main: #ff9cb3;
+    --pink-dark: #ff7696;
+    --text-dark: #2c2c2c;
+    --bg-color: #fbf8f9;
+}
+
+body {
+    font-family: 'Oswald', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.planner-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    max-width: 1000px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Detalhes de fundo (Manchas rosa) */
+.planner-container::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background-color: var(--pink-main);
+    border-radius: 50%;
+    opacity: 0.2;
+    z-index: 0;
+}
+
+.planner-container::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: -50px;
+    width: 300px;
+    height: 300px;
+    background-color: var(--pink-main);
+    border-radius: 50%;
+    opacity: 0.2;
+    z-index: 0;
+}
+
+/* Cabeçalho */
+header {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 30px;
+}
+
+.install-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: none;
+    border: 1px solid var(--pink-dark);
+    color: var(--pink-dark);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.install-btn:hover {
+    background-color: var(--pink-dark);
+    color: white;
+}
+
+.settings-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--pink-dark);
+    transition: transform 0.5s ease;
+    z-index: 10;
+}
+
+.settings-btn:hover {
+    transform: rotate(90deg);
+}
+
+h1 {
+    font-size: 5rem;
+    color: var(--pink-main);
+    margin: 0;
+    line-height: 1;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.subtitle {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.5rem;
+    color: var(--text-dark);
+    margin-top: -35px;
+    margin-bottom: 20px;
+    transform: rotate(-3deg);
+}
+
+.start-date {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    padding-right: 20px;
+}
+
+.start-date input {
+    border: none;
+    border-bottom: 2px solid var(--text-dark);
+    margin-left: 10px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    outline: none;
+    background: transparent;
+    color: var(--text-dark);
+    padding: 5px;
+}
+
+/* Tabela/Grid */
+.grid {
+    display: grid;
+    grid-template-columns: 50px repeat(6, 1fr);
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.empty-cell {
+    background: transparent;
+}
+
+.day-header {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.week-label {
+    background-color: var(--pink-dark);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.week-label span {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+}
+
+.day-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.02);
+}
+
+.task-row {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* Estilizando o checkbox para ficar rosa */
+.task-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    cursor: pointer;
+    accent-color: var(--pink-dark);
+}
+
+.task-name {
+    cursor: pointer;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.task-name:hover {
+    color: var(--pink-dark);
+}
+
+.info-icon {
+    font-size: 0.7rem;
+    background-color: var(--pink-light);
+    color: var(--pink-dark);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+    border: 1px solid var(--pink-main);
+}
+
+/* Modal Didático */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(3px);
+}
+
+.modal-box {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-title {
+    color: var(--pink-dark);
+    font-size: 2rem;
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+    font-family: 'Oswald', sans-serif;
+}
+
+.modal-text {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    color: #444;
+}
+
+.close-modal-btn {
+    background: var(--pink-dark);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Oswald', sans-serif;
+    transition: background 0.3s;
+}
+
+.close-modal-btn:hover {
+    background: var(--pink-main);
+}
+
+/* Formulário de Configurações */
+.config-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+.config-form label {
+    font-weight: 700;
+    color: var(--pink-dark);
+    font-size: 0.9rem;
+}
+
+.config-form input, .config-form select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    outline-color: var(--pink-main);
+}
+
+.save-btn {
+    background-color: var(--pink-dark);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Oswald', sans-serif;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.save-btn:hover {
+    background-color: var(--pink-main);
+}
+
+/* Barra de Progresso */
+.progress-container {
+    background-color: var(--pink-light);
+    border-radius: 20px;
+    height: 25px;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto 0;
+    overflow: hidden;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.progress-bar {
+    background-color: var(--pink-dark);
+    height: 100%;
+    width: 0%;
+    transition: width 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+/* Header do cartão (para alinhar dia e data) */
+.day-card-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.mobile-day-label {
+    display: none; /* Escondido no desktop */
+    font-weight: 700;
+    color: var(--pink-dark);
+    margin-right: auto;
+}
+
+/* Data dentro do card */
+.card-date {
+    font-size: 0.85rem;
+    color: var(--pink-dark);
+    font-weight: 700;
+    min-height: 1.2em;
+}
+
+/* Rodapé */
+footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1.2rem;
+    color: var(--pink-dark);
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+}
+
+.reset-btn {
+    background: transparent;
+    border: 1px solid var(--pink-dark);
+    color: var(--pink-dark);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Oswald', sans-serif;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.reset-btn:hover {
+    background-color: var(--pink-dark);
+    color: white;
+}
+
+/* Responsividade Básica */
+@media (max-width: 800px) {
+    .grid {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .day-header, .empty-cell {
+        display: none;
+    }
+    .week-label {
+        flex-direction: row;
+        padding: 5px 0;
+    }
+    .week-label span {
+        writing-mode: horizontal-tb;
+        transform: none;
+        font-size: 1.2rem;
+    }
+    .mobile-day-label {
+        display: block;
+    }
+    h1 { font-size: 4rem; }
+    .subtitle { font-size: 2.5rem; }
+}
