@@ -1,6 +1,6 @@
 # 💪 Planner Fitness - Progressive Web App (PWA)
 
-> 📲 **Acesse o App funcionando:** [Clique aqui para abrir](https://SEU-USUARIO.github.io/NOME-DO-REPOSITORIO/)
+> 📲 **Acesse o App funcionando:** [Clique aqui para abrir](https://fitness.github.io/fitness/)
 
 Um aplicativo web progressivo desenvolvido para auxiliar no acompanhamento e evolução de metas diárias de saúde e condicionamento físico. O projeto transforma um simples checklist de hábitos em uma ferramenta dinâmica que adapta as recomendações com base na biometria e nos objetivos do usuário.
 
@@ -24,7 +24,7 @@ Um aplicativo web progressivo desenvolvido para auxiliar no acompanhamento e evo
 
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/SEU-USUARIO/NOME-DO-REPOSITORIO.git
+   git clone https://github.com/SEU-USUARIO/fitness.git
    ```
 
 2. Abra o arquivo `planner.html` no seu navegador.
